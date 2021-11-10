@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SopaDeLetras.jar" size="10014" download="eager" />
+    <jar href="SopaDeLetras.jar" size="13979" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="SopaDeLetras" >
     <param name="requiredFXVersion" value="8.0+"/>

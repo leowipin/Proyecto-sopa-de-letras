@@ -33,7 +33,7 @@ public class VentanaInicioController {
 
     @FXML
     private void cambiarCreacionSopa(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("VentanaCreacionSopa.fxml"));
+        root = FXMLLoader.load(getClass().getResource("VentanaDimensiones.fxml"));
         stage= (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
