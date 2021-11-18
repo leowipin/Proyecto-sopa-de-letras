@@ -37,10 +37,10 @@ public class VentanaDimensionesController implements Initializable {
     private int nColumnas;
     private int nFilasSolucion;
     private int nColumnasSolucion;
-    private ArrayList<CircularLinkedList<String>> filas = new ArrayList<>();
-    private ArrayList<CircularLinkedList<String>> columnas = new ArrayList<>();
-    private ArrayList<ArrayList<String>> diagonal1 = new ArrayList<>();//creciente
-    private ArrayList<ArrayList<String>> diagonal2 = new ArrayList<>();//decreciente
+    static ArrayList<CircularLinkedList<String>> filas = new ArrayList<>();
+    static ArrayList<CircularLinkedList<String>> columnas = new ArrayList<>();
+    static ArrayList<ArrayList<String>> diagonal1 = new ArrayList<>();//creciente
+    static ArrayList<ArrayList<String>> diagonal2 = new ArrayList<>();//decreciente
     @FXML
     private ChoiceBox<String> choiceBoxDimensiones;
 
@@ -55,7 +55,7 @@ public class VentanaDimensionesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceBoxDimensiones.getItems().addAll(dimensiones);
-        choiceBoxDimensiones.setOnAction(this::construccionSopa);// se construye la sopa incial cuando se elige la dimension
+        choiceBoxDimensiones.setOnAction(this::construccionSopa);// se construye la sopa inicial cuando se elige la dimension
     }
 
     public void construccionSopa(ActionEvent event) {
@@ -63,7 +63,7 @@ public class VentanaDimensionesController implements Initializable {
         String[] dim = choiceBoxDimensiones.getValue().split("x");
         nFilas = Integer.valueOf(dim[0]);
         nColumnas = Integer.valueOf(dim[1]);
-        if(!filas.isEmpty()){
+        if (!filas.isEmpty()) {
             //si se elige denuevo otra dimension, hay que limpiar las estructuras
             filas.clear();
             columnas.clear();
@@ -71,19 +71,19 @@ public class VentanaDimensionesController implements Initializable {
             diagonal2.clear();
         }
         dimensionDeSolucion();
-        creacionSopaSolucion();
+        creacionSopaBase();
 
     }
 
     @FXML
     private void switchToSopaLetras(ActionEvent event) throws IOException {
         //CAMBIANDO DE ESCENA AL JUEGO
-        root = FXMLLoader.load(getClass().getResource("VentanaSopaDeLetras.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        VentanaSopaDeLetras v=new VentanaSopaDeLetras();
+        stage= (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(v.sceneSopa);
         stage.show();
     }
+
     //metodo a eliminar
     private void creacionDeSopa() {
         //banco de letras de ejemplo, crear un metodo cargar banco
@@ -111,6 +111,7 @@ public class VentanaDimensionesController implements Initializable {
         //banco de capitales del mundo por ejemplo
         return banco;
     }
+
     //como en la sopa puede eliminarse o añadirse filas y columnas un maximo de dos veces
     //en este metodo se crean todas las dimensiones posibles a partir de lo anterior.
     //y elige al azar una de esas dimensiones para que sea la dimension de la solucion
@@ -145,11 +146,11 @@ public class VentanaDimensionesController implements Initializable {
         nFilasSolucion = dimensiones.get(numAl).getKey();
         nColumnasSolucion = dimensiones.get(numAl).getValue();
     }
-    // a partir de la dimension de la solucion este metodo crea una sopa ya insertando 
-    // las palabras aleatoriamente, luego las filas y columnas de esta sopa seran desplazadas
-    // añadidas o eliminadas por el metodo creacionSopaToShow
-    //NOTA: la sopa solucion es una sopa la cual no se ha añadido, quitado ni desplazdo sus filas y columnas
-    private void creacionSopaSolucion() {
+
+    // a partir de la dimension de la solucion este metodo crea una sopa base la cual consiste
+    // en una matriz con sus (numerofila-numerocolumna) en cada casilla, con ayuda de esta matriz
+    // se insertaran las palabra aleatoria en la posicion aleatoria correspondiente
+        private void creacionSopaBase() {
         //creando las filas y columnas
         for (int i = 0; i < nFilasSolucion; i++) {
             filas.addLast(new CircularLinkedList<>());
@@ -159,33 +160,38 @@ public class VentanaDimensionesController implements Initializable {
         }
         //creando diagonales
         int nDiagonalesSolucion;
-        if(nFilasSolucion==nColumnasSolucion){
+        if (nFilasSolucion == nColumnasSolucion) {
             //nuemero de diagonales cuando la sopa es cuadrada
-            nDiagonalesSolucion=nColumnasSolucion*2-1;
-        } else{
+            nDiagonalesSolucion = nColumnasSolucion * 2 - 1;
+        } else {
             //numero de diagonales cuando la sopa es rectangular
-            nDiagonalesSolucion=(Math.max(nFilasSolucion, nColumnasSolucion)*2)-
-                    ((Math.max(nFilasSolucion, nColumnasSolucion))-(Math.min(nFilasSolucion, nColumnasSolucion))+1);
+            nDiagonalesSolucion = (Math.max(nFilasSolucion, nColumnasSolucion) * 2)
+                    - ((Math.max(nFilasSolucion, nColumnasSolucion)) - (Math.min(nFilasSolucion, nColumnasSolucion)) + 1);
         }
-        System.out.println("filas solucion: "+nFilasSolucion+"  columnas solucion: "+nColumnasSolucion);
-        System.out.println("numero de diagonales: "+nDiagonalesSolucion);
-        for (int i=0; i<nDiagonalesSolucion; i++){
+        System.out.println("filas solucion: " + nFilasSolucion + "  columnas solucion: " + nColumnasSolucion);
+        System.out.println("numero de diagonales: " + nDiagonalesSolucion);
+        for (int i = 0; i < nDiagonalesSolucion; i++) {
             diagonal1.addLast(new ArrayList<>());
             diagonal2.addLast(new ArrayList<>());
         }
         //llenando las filas, columnas y diagonales
         for (int i = 0; i < nFilasSolucion; i++) {
             for (int i2 = 0; i2 < nColumnasSolucion; i2++) {
-                filas.get(i).addLast(String.valueOf(i)+String.valueOf(i2));
-                columnas.get(i2).addLast(String.valueOf(i)+String.valueOf(i2));
-                diagonal1.get(i+i2).addFirst(String.valueOf(i)+String.valueOf(i2));
-                //falta añadir diagonal2
-                //diagonal2.get(i).addLast(String.valueOf(i)+String.valueOf(i2));
+                filas.get(i).addLast(String.valueOf(i) + "-" + String.valueOf(i2));
+                columnas.get(i2).addLast(String.valueOf(i) + "-" + String.valueOf(i2));
+                diagonal1.get(i + i2).addFirst(String.valueOf(i) + "-" + String.valueOf(i2));
+                //logica de diagonal2
+                if (i2 >= i) {
+                    diagonal2.get((nColumnasSolucion - 1) - (i2 - i)).addLast(String.valueOf(i) + "-" + String.valueOf(i2));
+                } else {
+                    diagonal2.get((nColumnasSolucion - 1) + (i- i2)).addLast(String.valueOf(i) + "-" + String.valueOf(i2));
+                }
             }
         }
-        for (int i = 0; i < diagonal1.size(); i++) {
+        for(int i=0; i<diagonal1.size(); i++){
             System.out.println(diagonal1.get(i));
         }
+
         //2)cuando el jugadro marca la casilla inicial y la final, crear un mecanismo para 
         //saber si ese patron de marcacion corrresponde a una vertical, hori o diagonal
         //3)luego sabiendo eso, buscar en el arraylist respectivo , con los indices seleccionados, si se 
@@ -194,12 +200,15 @@ public class VentanaDimensionesController implements Initializable {
         //se actualizen 
 
     }
-    
-    private void creacionSopaToShow(){
-        //crear dos estructuras de sopaInicial y sopaFinal
-        //en este metodo se quitan, añaden y desplzan las filas y columnas
-        //resultando en una sopa final que se mostrara en pantalla
-        // el desplazamiento debe ser minimo
+    private void creacionSopaInicial(){
+        //esta sopa inicial contiene las palabras ya insertadas pero sin desplazamiento alguno
+    }
+
+    private void creacionSopaToShow() {
+        //en este metodo se desplazan las filas y columnas
+        //resultando en una sopa final que se mostrara en pantalla 
+        //(con las dimensiones indicadas por el usuario, es decir se quitan o añaden columnas segun sea necesario)
+        //el desplazamiento debe ser minimo para evitar mucha dificultad sin embargo
         //se podrian crear niveles de dificultad que serian en base a cuantos desplazamientos se realizan
         //se deberia añadir un boton de ayuda para indicar los pasos a seguir para llegar a la
         //sopa solucion
@@ -207,9 +216,6 @@ public class VentanaDimensionesController implements Initializable {
 
     //getters para obtener en ventana sopa de letras para que sean ubicados
     //como una sopa de letras
-    public ArrayList<CircularLinkedList<String>> getFilas() {
-        return filas;
-    }
 
     public ArrayList<CircularLinkedList<String>> getColumnas() {
         return columnas;
