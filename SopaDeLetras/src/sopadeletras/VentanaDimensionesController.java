@@ -87,10 +87,7 @@ public class VentanaDimensionesController {
 
         generarPosicionPalabra();
         creacionSopaToShow();
-        System.out.println(palabrasBuscar);
         eliminarNoInsertados();
-        System.out.println(palabrasNoUbicadas);
-        System.out.println(palabrasBuscar);
 
     }
 
@@ -222,23 +219,6 @@ public class VentanaDimensionesController {
             }
 
         }
-        // posicionFila-posicionyColumna-numeroLetrasMaximo
-        if (nFilasSolucion > nColumnasSolucion) {
-            for (int ix = 0; ix < columnas.size(); ix++) {
-                System.out.println(columnas.get(ix));
-            }
-        } else {
-            for (int ix = 0; ix < filas.size(); ix++) {
-                System.out.println(filas.get(ix));
-            }
-        }
-
-        //2)cuando el jugadro marca la casilla inicial y la final, crear un mecanismo para 
-        //saber si ese patron de marcacion corrresponde a una vertical, hori o diagonal
-        //3)luego sabiendo eso, buscar en el arraylist respectivo , con los indices seleccionados, si se 
-        //encuentra la palabra
-        //4) cuando una fila o columna sea añadida o desplazada comunicar a las estructuras para que estas
-        //se actualizen 
     }
 
     private ArrayList cargarBanco() {
@@ -307,7 +287,6 @@ public class VentanaDimensionesController {
             for (int i = 0; i < palabrasBuscar.get(i0).length(); i++) {
                 pal = palabrasBuscar.get(i0);
                 if (i == 0) {
-                    System.out.println(pal);
                     int numAl = (int) (Math.random() * posiblesPosiciones.get(i0).size());
                     String pos = posiblesPosiciones.get(i0).get(numAl);
                     if (posiciones.contains(pos)) {
@@ -321,7 +300,6 @@ public class VentanaDimensionesController {
                                 String pos2 = posiblesPosiciones.get(i0).get(e);
                                 if (!posiciones.contains(pos2)) {
                                     posiciones.addLast(pos2);
-                                    System.out.println("");
                                     letras.addLast(String.valueOf(pal.charAt(0)));
                                     break;
                                 }
@@ -332,8 +310,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(0)));
                     }
                 } else {
-                    System.out.println("posiciones: " + posiciones);
-                    System.out.println("letras: " + letras);
 
                     //0: se va a ubicar en fila.  1: columna.  2: diagonal1.  3:diagonal2
                     if (i == 1) {
@@ -554,7 +530,6 @@ public class VentanaDimensionesController {
                         }
                     }
                     if (flagFila) {
-                        System.out.println("flagFila");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = ultiSplit[0].concat("-" + String.valueOf(Integer.valueOf(ultiSplit[1]) + 1));
@@ -562,7 +537,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagFilaAnti) {
-                        System.out.println("flagFilaAnti");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = ultiSplit[0].concat("-" + String.valueOf(Integer.valueOf(ultiSplit[1]) - 1));
@@ -570,7 +544,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagColumna) {
-                        System.out.println("flagColumna");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = String.valueOf(Integer.valueOf(ultiSplit[0]) + 1).concat("-" + ultiSplit[1]);
@@ -578,7 +551,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagColumnaAnti) {
-                        System.out.println("flagColumnaAnti");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = String.valueOf(Integer.valueOf(ultiSplit[0]) - 1).concat("-" + ultiSplit[1]);
@@ -586,7 +558,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagDiag1) {
-                        System.out.println("flagDiag1");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = String.valueOf(Integer.parseInt(ultiSplit[0]) + 1).concat("-" + String.valueOf(Integer.parseInt(ultiSplit[1]) + 1));
@@ -594,7 +565,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagDiag1Anti) {
-                        System.out.println("flagDiag1anti");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = String.valueOf(Integer.parseInt(ultiSplit[0]) - 1).concat("-" + String.valueOf(Integer.parseInt(ultiSplit[1]) - 1));
@@ -602,7 +572,6 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagDiag2) {
-                        System.out.println("flagDiag2");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
                         String posic = String.valueOf(Integer.parseInt(ultiSplit[0]) - 1).concat("-" + String.valueOf(Integer.parseInt(ultiSplit[1]) + 1));
@@ -610,10 +579,8 @@ public class VentanaDimensionesController {
                         letras.addLast(String.valueOf(pal.charAt(i)));
 
                     } else if (flagDiag2Anti) {
-                        System.out.println("flagDiag2Anti");
                         String ultiPos = posiciones.get(posiciones.size() - 1);
                         String[] ultiSplit = ultiPos.split("-");
-                        System.out.println(ultiSplit[0] + "-" + ultiSplit[1]);
                         String posic = String.valueOf(Integer.parseInt(ultiSplit[0]) + 1).concat("-" + String.valueOf(Integer.parseInt(ultiSplit[1]) - 1));
                         posiciones.addLast(posic);
                         letras.addLast(String.valueOf(pal.charAt(i)));
@@ -628,8 +595,7 @@ public class VentanaDimensionesController {
                 palabrasNoUbicadas.addLast(pal);
             }
         }
-        System.out.println(posiciones);
-        System.out.println(letras);
+
         for (int i = 0; i < posiciones.size(); i++) {
             posicionesFinal.addLast(posiciones.get(i).concat("-" + letras.get(i)));
         }
@@ -643,38 +609,161 @@ public class VentanaDimensionesController {
                 String pos = String.valueOf(i).concat("-" + String.valueOf(i2));
                 if (posiciones.contains(pos)) {
                     int index = posiciones.getIndex(pos);
-                    String letra = letras.get(index).concat("-s");
+                    String letra = letras.get(index).concat("-s").concat("-" + String.valueOf(i)).concat("-" + String.valueOf(i2));
                     filas.get(i).set(i2, letra);
                     columnas.get(i2).set(i, letra);
 
                 } else {
                     Random random = new Random();
                     char randomizedCharacter = (char) (random.nextInt(26) + 'a');
-                    String letra = String.valueOf(randomizedCharacter).toUpperCase().concat("-n"); //letra elegida aleatoriamente del abecedario
+                    String letra = String.valueOf(randomizedCharacter).toUpperCase().concat("-n").concat("-" + String.valueOf(i)).concat("-" + String.valueOf(i2)); //letra elegida aleatoriamente del abecedario
                     filas.get(i).set(i2, letra);
                     columnas.get(i2).set(i, letra);
                 }
 
             }
         }
-        System.out.println("FILAS");
-        for (int ix = 0; ix < filas.size(); ix++) {
-            System.out.println(filas.get(ix));
-        }
-        
-       /* while(nFilas!=nFilasSolucion){
-            if(nFilas>nFilasSolucion){//agregas
-                int numAl = (int) (Math.random() * filas.size());//indice donde se agregar la fila
-                //agregarFila();
-            }else{//quitas
-                int numAl = (int) (Math.random() * filas.size());//indice donde se quitara la fila
-                //quitarFila();
+        System.out.println("---INICIAL---");
+        System.out.println("FILAS SOPATOSHOW: " + nFilas + " COLUMNAS SOPATOSHOW: " + nColumnas);
+        System.out.println("FILAS SOLUCION SOPATOSHOW: " + filas.size() + " COLUMNAS SOLUCION SOPATOSHOW: " + columnas.size());
+        //codigo para agregar o eliminar columnas segun sean las dimensiones del usuario
+        while (nFilas != filas.size() || nColumnas != columnas.size()) {
+            if (nFilas > filas.size()) {//agregas
+                int numAl = (int) (Math.random() * (filas.size() + 1));//indice donde se agregar la fila
+                agregarFila(numAl, "letra");
+                System.out.println("NUMERO ALEATORIO AGREGAR FIL: " + numAl);
+                //agregarFila(numAl);
+            } else if (nFilas < filas.size()) {//quitas
+                int numAl = (int) (Math.random() * (filas.size() - 1) + 1);//indice donde se quitara la fila
+                System.out.println("NUMERO ALEATORIO QUITAR FIL: " + numAl);
+                quitarFila(numAl);
+                //quitarFila(numAl);
             }
-        }*/
+            if (nColumnas > columnas.size()) {
+                int numAl = (int) (Math.random() * (columnas.size() + 1));
+                System.out.println("NUMERO ALEATORIO AGREGAR COL: " + numAl);
+                agregarColumna(numAl, "letra");
+            } else if (nColumnas < columnas.size()) {
+                int numAl = (int) (Math.random() * (columnas.size() - 1) + 1);
+                System.out.println("NUMERO ALEATORIO QUITAR COL: " + numAl);
+                quitarColumna(numAl);
+            }
+        }
+        agregarColumna(0, "desplazarFilaIzquierda");
+        agregarColumna(0, "quitarFila");
+        agregarColumna(0, "lbl");
+        System.out.println("");
+        agregarColumna(columnas.size(), "desplazarFilaDerecha");
+        agregarColumna(columnas.size(), "añadirFila");
+        agregarColumna(columnas.size(), "lbl");
 
-        //segun sea necesario para llegar a las dimensiones proporcionadas por el usuario
-        //elminarColumnas(); agregarColumnas(); 
-        //eliminarFilas(); agregarFilas(); 
+        agregarFila(0, "desplazarColumnaArriba");
+        agregarFila(0, "añadirColumna");
+        agregarFila(0, "lbl");
+        agregarFila(filas.size(),"desplazarColumnaAbajo");
+        agregarFila(filas.size(),"quitarColumna");
+        agregarFila(filas.size(),"lbl");
+        System.out.println("FINAL---");
+        System.out.println("FILAS SOPATOSHOW: " + nFilas + " COLUMNAS SOPATOSHOW: " + nColumnas);
+        System.out.println("FILAS SOLUCION SOPATOSHOW: " + filas.size() + " COLUMNAS SOLUCION SOPATOSHOW: " + columnas.size());
+    }
+
+    private void agregarFila(int num, String s) {
+        //se añade la fila, se añaden las posiciones de las columnas respectivas. este cambio se tiene que ver reflejado instantaneamente
+        CircularLinkedList<String> nueva = new CircularLinkedList<>();
+
+        for (int i = 0; i < columnas.size(); i++) {
+            if (s.equals("letra")) {
+                Random random = new Random();
+                char randomizedCharacter = (char) (random.nextInt(26) + 'a');
+                String letra = String.valueOf(randomizedCharacter).toUpperCase().concat("-n").concat("-" + String.valueOf(num)).concat("-" + String.valueOf(i));
+                nueva.addLast(letra);
+            } else if (i <= 2 || i >= columnas.size() - 3) {
+                String blanco = "lbl-b";
+                nueva.addLast(blanco);
+            } else if (s.equals("lbl")) {
+                String letra = "lbl".concat("-".concat(String.valueOf(i - 3)));
+                nueva.addLast(letra);
+            } else if (s.equals("quitarColumna")) {
+                String letra = "quitarColumna".concat("-".concat(String.valueOf(i - 3)));
+                nueva.addLast(letra);
+            } else if (s.equals("añadirColumna")) {
+                String letra = "añadirColumna".concat("-".concat(String.valueOf(i - 3)));
+                nueva.addLast(letra);
+            } else if (s.equals("desplazarColumnaArriba")) {
+                String letra = "desplazarColumnaArriba".concat("-".concat(String.valueOf(i - 3)));
+                nueva.addLast(letra);
+            } else {
+                String letra = "desplazarColumnaAbajo".concat("-".concat(String.valueOf(i - 3)));
+                nueva.addLast(letra);
+            }
+        }
+        filas.add(num, nueva);
+        int i = 0;
+        for (CircularLinkedList c : columnas) {
+            if (num == filas.size() - 1) {
+                c.add(num - 1, nueva.get(i));
+            } else {
+                c.add(num, nueva.get(i));
+            }
+            c.add(num, nueva.get(i));
+            i++;
+        }
+        //implementar la pila...
+
+    }
+
+    private void quitarFila(int num) {
+        filas.remove(num);
+        for (CircularLinkedList c : columnas) {
+            c.remove(num);
+        }
+    }
+
+    private void agregarColumna(int num, String s) {
+        CircularLinkedList<String> nuevo = new CircularLinkedList<>();
+
+        for (int i = 0; i < filas.size(); i++) {
+            if (s.equals("letra")) {
+                Random random = new Random();
+                char randomizedCharacter = (char) (random.nextInt(26) + 'a');
+                String letra = String.valueOf(randomizedCharacter).toUpperCase().concat("-n").concat("-" + String.valueOf(i)).concat("-" + String.valueOf(num));
+                nuevo.addLast(letra);
+            } else if (s.equals("lbl")) {
+                String letra = "lbl".concat("-".concat(String.valueOf(i)));
+                nuevo.addLast(letra);
+            } else if (s.equals("quitarFila")) {
+                String letra = "quitarFila".concat("-".concat(String.valueOf(i)));
+                nuevo.addLast(letra);
+            } else if (s.equals("añadirFila")) {
+                String letra = "añadirFila".concat("-".concat(String.valueOf(i)));
+                nuevo.addLast(letra);
+            } else if (s.equals("desplazarFilaIzquierda")) {
+                String letra = "desplazarFilaIzquierda".concat("-".concat(String.valueOf(i)));
+                nuevo.addLast(letra);
+            } else {
+                String letra = "desplazarFilaDerecha".concat("-".concat(String.valueOf(i)));
+                nuevo.addLast(letra);
+            }
+        }
+        columnas.add(num, nuevo);
+        int i = 0;
+        for (CircularLinkedList c : filas) {
+            if (num == columnas.size() - 1) {
+                c.add(num - 1, nuevo.get(i));
+            } else {
+                c.add(num, nuevo.get(i));
+                i++;
+            }
+        }
+
+    }
+
+    private void quitarColumna(int num) {
+        columnas.remove(num);
+        for (CircularLinkedList c : filas) {
+            c.remove(num);
+        }
     }
 
     private void eliminarNoInsertados() {

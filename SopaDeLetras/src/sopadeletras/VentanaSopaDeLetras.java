@@ -44,6 +44,8 @@ public class VentanaSopaDeLetras implements Initializable {
     Button ayuda = new Button("Ayuda");
     Label info = new Label("Ejemplo: elimine la fila 2");
     Button btnVolver = new Button("Volver");
+    ArrayList<Casilla> casillas = new ArrayList<>();
+    ArrayList<BotonControl> botonesControl = new ArrayList<>();
 
     Stage stage = new Stage();
     Scene scene2;
@@ -51,6 +53,7 @@ public class VentanaSopaDeLetras implements Initializable {
 
     public VentanaSopaDeLetras() {
         buildSopa();
+
         btnNuevo.setOnAction(this::btnNuevo);
         btnVolver.setOnAction(this::volver);
         mostrar.setOnAction(this::mostrar);
@@ -101,20 +104,74 @@ public class VentanaSopaDeLetras implements Initializable {
         System.out.println("FILAS:  " + nFilas + "COLUMNAS:  " + nColumnas);
         cuadriculas.setHgap(2);
         cuadriculas.setVgap(2);
+        int f = 1;
+        int c = 1;
         for (int i = 0; i < nFilas; i++) {
             for (int j = 0; j < nColumnas; j++) {
+                System.out.println(VentanaDimensionesController.filas.get(i).get(j));
                 String[] pala = VentanaDimensionesController.filas.get(i).get(j).split("-");
-                Casilla btn1 = new Casilla(pala[0], i, j);
                 if (pala[1].equals("s")) {
+                    Casilla btn1 = new Casilla(pala[0], Integer.parseInt(pala[2]), Integer.parseInt(pala[3]));
                     btn1.setEsSolucion(true);
+                    btn1.setMinSize(30, 30);
+                    btn1.setStyle("-fx-text-fill: White; -fx-font: bold italic 9pt Arial; -fx-background-color: #454545;");
+                    cuadriculas.add(btn1, j, i);
+                    casillas.addLast(btn1);
+                } else if (pala[1].equals("n")) {
+                    for (String pala1 : pala) {
+                        //System.out.println(pala1);
+                    }
+                    Casilla btn1 = new Casilla(pala[0], Integer.parseInt(pala[2]), Integer.parseInt(pala[3]));
+                    btn1.setMinSize(30, 30);
+                    if (mostrarSolucion) {
+                        btn1.setStyle("-fx-text-fill: #808B96 ; -fx-font: bold italic 9pt Arial; -fx-background-color: #454545;");
+                    } else {
+                        btn1.setStyle("-fx-text-fill: White; -fx-font: bold italic 9pt Arial; -fx-background-color: #454545;");
+                    }
+                    cuadriculas.add(btn1, j, i);
+                    casillas.addLast(btn1);
+                } else if (pala[1].equals("b")) {
+                    Label l = new Label("");
+                    l.setMinSize(30, 30);
+                    cuadriculas.add(l, j, i);
+                } else if (pala[0].equals("lbl")) {
+                    Label l = new Label(pala[1]);
+                    l.setMinSize(30, 30);
+                    cuadriculas.add(l, j, i);
+                } else if (pala[0].equals("añadirColumna")) {
+                    BotonControl btn1 = new BotonControl("+", Integer.parseInt(pala[1]), "añadirColumna");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if (pala[0].equals("añadirFila")) {
+                    BotonControl btn1 = new BotonControl("+", Integer.parseInt(pala[1]), "añadirFila");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if (pala[0].equals("quitarColumna")) {
+                    BotonControl btn1 = new BotonControl("-", Integer.parseInt(pala[1]), "quitarColumna");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if (pala[0].equals("quitarFila")) {
+                    BotonControl btn1 = new BotonControl("-", Integer.parseInt(pala[1]), "quitarFila");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if (pala[0].equals("desplazarFilaDerecha")) {
+                    BotonControl btn1 = new BotonControl("R", Integer.parseInt(pala[1]), "desplazarFilaDerecha");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if (pala[0].equals("desplazarFilaIzquierda")) {
+                    BotonControl btn1 = new BotonControl("L", Integer.parseInt(pala[1]), "desplazarFilaIzquierda");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if(pala[0].equals("desplazarColumnaArriba")){
+                    BotonControl btn1 = new BotonControl("U",Integer.parseInt(pala[1]),"desplazarColumnaArriba");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
+                } else if(pala[0].equals("desplazarColumnaAbajo")){
+                    BotonControl btn1 = new BotonControl("D",Integer.parseInt(pala[1]),"desplazarColumnaAbajo");
+                    btn1.setMinSize(30, 30);
+                    cuadriculas.add(btn1, j, i);
                 }
-                /*if(){
-                    si el pintado es true, pintar de azul el background
-                }else{
-                    btn1.setStyle("-fx-text-fill: White; -fx-font: bold italic 10pt Arial; -fx-background-color: #454545;");
-  
-                }*/
-                if (mostrarSolucion) {
+                /*if (mostrarSolucion) {
                     if (btn1.isEsSolucion()) {
                         btn1.setStyle("-fx-text-fill: White; -fx-font: bold italic 9pt Arial; -fx-background-color: #454545;");
                     } else {
@@ -122,11 +179,14 @@ public class VentanaSopaDeLetras implements Initializable {
                     }
                 } else {
                     btn1.setStyle("-fx-text-fill: White; -fx-font: bold italic 9pt Arial; -fx-background-color: #454545;");
-                }
-                btn1.setMinSize(30, 30);
-                //btn1.setMaxSize(20, 20);
-                cuadriculas.add(btn1, j, i);
+                }*/
+
+                //AÑADIR FORMATO
+                c++;
+
+                f++;
             }
+
         }
         cuadriculas.setAlignment(Pos.CENTER);
         root.setCenter(cuadriculas);
@@ -137,7 +197,6 @@ public class VentanaSopaDeLetras implements Initializable {
         Label pal = new Label("Palabras  ");
         pal.setStyle("-fx-text-fill: Black; -fx-font: bold italic 15pt Arial;");
         opciones.getChildren().add(pal);
-        System.out.println("SIZE " + VentanaDimensionesController.palabrasBuscar.size());
         for (int ix = 0; ix < VentanaDimensionesController.palabrasBuscar.size(); ix++) {
             Label lbl = new Label(VentanaDimensionesController.palabrasBuscar.get(ix));
             lbl.setStyle("-fx-text-fill: #34495E; -fx-font: italic 15pt Arial;");
