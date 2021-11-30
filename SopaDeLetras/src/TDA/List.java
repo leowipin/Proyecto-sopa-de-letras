@@ -19,12 +19,14 @@ public interface List<E> extends Iterable<E> {
     public boolean add(int index, E element);
     public E remove(int index);
     public E get(int index);
+    public int getIndex(E element);
     public E getNext(E content);
     public E getPrevious(E content);
     public E set(int index, E element);
     public int size();
     public boolean isEmpty();
     public void clear();
+    public boolean contains(E element);
     @Override
     public String toString();
     @Override

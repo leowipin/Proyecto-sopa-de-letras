@@ -11,9 +11,7 @@ package Estructuras;
  */
 public class Main {
      public static void main(String[] args) {
-     
-         CircularLinkedList<String> cl = new CircularLinkedList<>();
-         System.out.println(".");
+
          
      }
 }

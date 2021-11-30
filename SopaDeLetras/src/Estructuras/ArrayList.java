@@ -54,7 +54,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        return elements[index]; //To change body of generated methods, choose Tools | Templates.
+        return elements[index]; 
     }
 
     @Override
@@ -158,5 +158,32 @@ public class ArrayList<E> implements List<E> {
     public E getNext(E content) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int getIndex(E element) {
+        int i=0;
+        for(E e: this){
+            if(e.equals(element)){
+                break;
+            }
+            i++;
+        }
+        return i;
+    }
+
+    @Override
+    public boolean contains(E element) {
+        boolean valor = false;
+        for(E e: this){
+            if(e.equals(element)){
+                valor=true;
+                break;
+            }
+        }
+        return valor;
+    }
+    
+
+
 
 }

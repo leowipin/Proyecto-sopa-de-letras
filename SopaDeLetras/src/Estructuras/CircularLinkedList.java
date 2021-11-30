@@ -95,7 +95,6 @@ public class CircularLinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
         for (v = last.getNext(); i < index; v = v.getNext()) {
-            System.out.println(v.getContent());
             i++;
         }
         return v.getContent();
@@ -103,7 +102,17 @@ public class CircularLinkedList<E> implements List<E> {
 
     @Override
     public E set(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NodeCircularList<E> v;
+        int i = 0;
+        if (index > this.size() - 1 || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        for (v = last.getNext(); i < index; v = v.getNext()) {
+            i++;
+        }
+        NodeCircularList<E> seteado =v;
+        v.setContent(element);
+        return seteado.getContent();
     }
 
     @Override
@@ -150,6 +159,17 @@ public class CircularLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public int getIndex(E element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean contains(E element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
