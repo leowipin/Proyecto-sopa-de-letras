@@ -260,7 +260,7 @@ public class VentanaDimensionesController {
         FileReader archivo;
         BufferedReader lector;
         try{
-            archivo = new FileReader("/home/leonardo/Desktop/Proyecto Sopa de letras/PSroyecto-sopa-de-letras/SopaDeLetras/src/sopadeletras/ciudades.txt");
+            archivo = new FileReader("/home/leonardo/Desktop/Proyecto Sopa de letras/Proyecto-sopa-de-letras/SopaDeLetras/src/sopadeletras/ciudades.txt");
             if(archivo.ready()){
                 lector= new BufferedReader(archivo);
                 String cadena;
