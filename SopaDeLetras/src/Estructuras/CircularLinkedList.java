@@ -207,7 +207,24 @@ public class CircularLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Iterator<E> it = new Iterator() {
+            NodeCircularList<E> v = last.getNext();
+            int i = 0;
+            
+            @Override
+            public boolean hasNext() {
+                return i<size();
+            }
+
+            @Override
+            public E next() {
+                E x = v.getContent();
+                v = v.getNext();
+                i++;
+                return x;
+            }
+        };
+        return it;
     }
 
     @Override
@@ -218,6 +235,16 @@ public class CircularLinkedList<E> implements List<E> {
     @Override
     public boolean contains(E element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void desplazarIzquierda() {
+        last = last.getNext();
+    }
+
+    @Override
+    public void desplazarDerecha() {
+        last = last.getPrevious();
     }
 
 }

@@ -27,6 +27,8 @@ public interface List<E> extends Iterable<E> {
     public boolean isEmpty();
     public void clear();
     public boolean contains(E element);
+    public void desplazarIzquierda();
+    public void desplazarDerecha();
     @Override
     public String toString();
     @Override

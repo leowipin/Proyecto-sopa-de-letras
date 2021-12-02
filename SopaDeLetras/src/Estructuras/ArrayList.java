@@ -182,6 +182,16 @@ public class ArrayList<E> implements List<E> {
         }
         return valor;
     }
+
+    @Override
+    public void desplazarIzquierda() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void desplazarDerecha() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
 
